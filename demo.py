@@ -2,6 +2,7 @@ from bigchaindb_driver import BigchainDB
 from bigchaindb_driver.crypto import generate_keypair
 from time import sleep
 
+# URL to Docker image
 bdb_root_url = 'localhost:9984'
 
 
