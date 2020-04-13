@@ -13,6 +13,8 @@ import okhttp3.Response;
 
 import java.io.IOException;
 import java.security.KeyPair;
+import java.sql.SQLOutput;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -21,7 +23,7 @@ public class DemoDriver {
     public static final String URL = "http://127.0.0.1:9984";
 
 
-    public void run() throws Exception {
+    public void run(List<Map<String, String>> assetList) throws Exception {
         DemoDriver demo = new DemoDriver();
 
         demo.SetConfig();
@@ -31,19 +33,22 @@ public class DemoDriver {
         System.out.println(Base58.encode(keys.getPublic().getEncoded()));
         System.out.println(Base58.encode(keys.getPrivate().getEncoded()));
 
-        Map<String, String> assetData = new TreeMap<String, String>() {{
-            put("name", "James Bond");
-            put("age", "doesn't matter");
-            put("purpose", "saving the world");
-        }};
-
         MetaData metaData = new MetaData();
         metaData.setMetaData("", "");
 
-        String txId = demo.create(assetData, metaData, keys);
-        Thread.sleep(60 * 1);
+        long start = System.nanoTime();
+
+        for (Map<String, String> assetData : assetList) {
+            String txID = demo.create(assetData, metaData, keys);
+        }
+        long end = System.nanoTime();
+
+        long total = end - start;
+        System.out.println(total);
 
     }
+
+
 
     public void SetConfig() {
         BigchainDbConfigBuilder.baseUrl(this.URL).setup();

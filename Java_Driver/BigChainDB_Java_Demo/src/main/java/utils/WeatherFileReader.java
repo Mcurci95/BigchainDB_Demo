@@ -10,19 +10,21 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class WeatherFileReader {
-    public List<Weather> ReadFile(String fileName) throws  IOException, CsvValidationException {
+    public List<Map<String, String>> ReadFile(String fileName) throws  IOException, CsvValidationException {
         FileReader fileReader = new FileReader(fileName);
 
         CSVReader csvReader = new CSVReader(fileReader);
+        csvReader.skip(1);
         String[] nextRecord;
 
 
-        List<Weather> weatherList = new ArrayList<Weather>();
+        List<Map<String, String>> weatherList = new ArrayList<Map<String, String>>();
         while ((nextRecord = csvReader.readNext()) != null) {
             Weather weather = new Weather(nextRecord);
-            weatherList.add(weather);
+            weatherList.add(weather.transformIntoAsset());
         }
         return weatherList;
     }
