@@ -1,4 +1,4 @@
-package demo;
+package Connections;
 
 import com.bigchaindb.builders.BigchainDbConfigBuilder;
 import com.bigchaindb.builders.BigchainDbTransactionBuilder;
@@ -13,18 +13,17 @@ import okhttp3.Response;
 
 import java.io.IOException;
 import java.security.KeyPair;
-import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class DemoDriver {
+public class BigChainDBDriver {
 
     public static final String URL = "http://127.0.0.1:9984";
 
 
     public void run(List<Map<String, String>> assetList) throws Exception {
-        DemoDriver demo = new DemoDriver();
+        BigChainDBDriver demo = new BigChainDBDriver();
 
         demo.SetConfig();
 
