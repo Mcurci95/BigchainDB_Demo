@@ -1,6 +1,12 @@
 package models;
 
+import org.bson.Document;
+
+import javax.print.Doc;
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Weather {
     String station;
@@ -32,10 +38,12 @@ public class Weather {
     String sdnp;
     String frshtt;
 
+    public Weather() {
+    }
 
     public Weather(String[] weatherList) {
         station = weatherList[0];
-        date    = weatherList[1];
+        date = weatherList[1];
         latitiude = weatherList[2];
         longitude = weatherList[3];
         elevation = weatherList[4];
@@ -67,5 +75,73 @@ public class Weather {
     @Override
     public String toString() {
         return String.format("[Station: %s Date: %s]", station, date);
+    }
+
+    public Map<String, String> transformIntoAsset() {
+        Map<String, String> asset = new TreeMap<String, String>();
+        asset.put("station", station);
+        asset.put("date", date);
+        asset.put("latitiude", latitiude);
+        asset.put("longitude", longitude);
+        asset.put("elevation", elevation);
+        asset.put("name", name);
+        asset.put("temp", temp);
+        asset.put("temp_attributes", temp_attributes);
+        asset.put("dewp", dewp);
+        asset.put("dewp_attributes", dewp_attributes);
+        asset.put("slp", slp);
+        asset.put("slp_attributes", slp_attributes);
+        asset.put("stp", stp);
+        asset.put("stp_attributes", slp_attributes);
+        asset.put("visib", visib);
+        asset.put("visib_attributes", visib_attributes);
+        asset.put("wdsp", wdsp);
+        asset.put("wdsp_attributes", wdsp_attributes);
+        asset.put("mxspd", mxspd);
+        asset.put("gust", gust);
+        asset.put("max", max);
+        asset.put("max_attributes", max_attributes);
+        asset.put("min", min);
+        asset.put("min_attributes", min_attributes);
+        asset.put("prcp", prcp);
+        asset.put("prcp_attributes", prcp_attributes);
+        asset.put("sdnp", sdnp);
+        asset.put("frshtt", frshtt);
+        return asset;
+    }
+
+
+    public Document transformIntoDocument() {
+        Document doc = new Document("station", station)
+                .append("station", station)
+                .append("date", date)
+                .append("latitiude", latitiude)
+                .append("longitude", longitude)
+                .append("elevation", elevation)
+                .append("name", name)
+                .append("temp", temp)
+                .append("temp_attributes", temp_attributes)
+                .append("dewp", dewp)
+                .append("dewp_attributes", dewp_attributes)
+                .append("slp", slp)
+                .append("slp_attributes", slp_attributes)
+                .append("stp", stp)
+                .append("stp_attributes", slp_attributes)
+                .append("visib", visib)
+                .append("visib_attributes", visib_attributes)
+                .append("wdsp", wdsp)
+                .append("wdsp_attributes", wdsp_attributes)
+                .append("mxspd", mxspd)
+                .append("gust", gust)
+                .append("max", max)
+                .append("max_attributes", max_attributes)
+                .append("min", min)
+                .append("min_attributes", min_attributes)
+                .append("prcp", prcp)
+                .append("prcp_attributes", prcp_attributes)
+                .append("sdnp", sdnp)
+                .append("frshtt", frshtt);
+
+        return doc;
     }
 }
