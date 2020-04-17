@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 public class WeatherFileReader {
-    public List<Map<String, String>> ReadFile(String fileName) throws  IOException, CsvValidationException {
+    public List<Weather> ReadFile(String fileName) throws IOException, CsvValidationException {
         FileReader fileReader = new FileReader(fileName);
 
         CSVReader csvReader = new CSVReader(fileReader);
@@ -21,10 +21,10 @@ public class WeatherFileReader {
         String[] nextRecord;
 
 
-        List<Map<String, String>> weatherList = new ArrayList<Map<String, String>>();
+        List<Weather> weatherList = new ArrayList<Weather>();
         while ((nextRecord = csvReader.readNext()) != null) {
             Weather weather = new Weather(nextRecord);
-            weatherList.add(weather.transformIntoAsset());
+            weatherList.add(weather);
         }
         return weatherList;
     }
