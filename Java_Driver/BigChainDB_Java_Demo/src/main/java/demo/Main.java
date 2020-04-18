@@ -40,15 +40,20 @@ public class Main {
         long start = System.nanoTime();
 
         // Mongo time: 43530736541 2409386068
-        for (Document weatherDoc : weatherDocument) {
-            mongo.insert(weatherDoc);
-        }
+//        for (Document weatherDoc : weatherDocument) {
+//            mongo.insert(weatherDoc);
+//        }
 
         long end = System.nanoTime();
 
         long total = end - start;
         System.out.println(total);
 
+        // Mongo Insert many
+        start = System.nanoTime();
+        mongo.insertMany(weatherDocument);
+        end = System.nanoTime();
+        total = end - start;
 //        demo.run(weatherList);
     }
 }
