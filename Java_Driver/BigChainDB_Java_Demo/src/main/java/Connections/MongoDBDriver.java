@@ -9,6 +9,8 @@ import config.Constants;
 import models.Weather;
 import org.bson.Document;
 
+import java.util.List;
+
 public class MongoDBDriver {
 
     MongoClient mongoClient;
@@ -30,6 +32,10 @@ public class MongoDBDriver {
 
     public void insert(Document weatherDoc) {
         collection.insertOne(weatherDoc);
+    }
+
+    public void insertMany(List<Document> weatherDocList) {
+        collection.insertMany(weatherDocList);
     }
 
 }
