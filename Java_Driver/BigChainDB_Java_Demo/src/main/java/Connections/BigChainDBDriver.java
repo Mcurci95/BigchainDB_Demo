@@ -7,6 +7,7 @@ import com.bigchaindb.model.GenericCallback;
 import com.bigchaindb.model.MetaData;
 import com.bigchaindb.model.Transaction;
 import com.bigchaindb.util.Base58;
+import models.Weather;
 import net.i2p.crypto.eddsa.EdDSAPrivateKey;
 import net.i2p.crypto.eddsa.EdDSAPublicKey;
 import okhttp3.Response;
@@ -17,36 +18,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class BigChainDBDriver {
+public class BigChainDBDriver  {
 
     public static final String URL = "http://127.0.0.1:9984";
-
-
-    public void run(List<Map<String, String>> assetList) throws Exception {
-        BigChainDBDriver demo = new BigChainDBDriver();
-
-        demo.SetConfig();
-
-        KeyPair keys = demo.getKeys();
-
-        System.out.println(Base58.encode(keys.getPublic().getEncoded()));
-        System.out.println(Base58.encode(keys.getPrivate().getEncoded()));
-
-        MetaData metaData = new MetaData();
-        metaData.setMetaData("", "");
-
-        long start = System.nanoTime();
-
-        for (Map<String, String> assetData : assetList) {
-            String txID = demo.create(assetData, metaData, keys);
-        }
-        long end = System.nanoTime();
-
-        long total = end - start;
-        System.out.println(total);
-
-    }
-
 
 
     public void SetConfig() {
@@ -115,4 +89,5 @@ public class BigChainDBDriver {
 
         System.out.println("Transaction failed");
     }
+
 }
