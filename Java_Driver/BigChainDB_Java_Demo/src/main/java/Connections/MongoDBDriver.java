@@ -11,11 +11,12 @@ import org.bson.Document;
 
 import java.util.List;
 
-public class MongoDBDriver {
+public class MongoDBDriver  {
 
     MongoClient mongoClient;
     MongoDatabase database;
     MongoCollection collection;
+    MongoCollection manyCollection;
 
     public void run() {
         connect();
@@ -23,10 +24,12 @@ public class MongoDBDriver {
     }
 
     public void connect() {
-        this.mongoClient = MongoClients.create(
-                "mongodb+srv://" + Constants.MONGO_USER + ":" + Constants.MONGO_PASS + "@devconnector-deczi.mongodb.net/test?retryWrites=true&w=majority");
+//        this.mongoClient = MongoClients.create(
+//                "mongodb+srv://" + Constants.MONGO_USER + ":" + Constants.MONGO_PASS + "@devconnector-deczi.mongodb.net/test?retryWrites=true&w=majority");
+        this.mongoClient = MongoClients.create("mongodb://localhost:27017");
         this.database = mongoClient.getDatabase("cecs574");
         this.collection =  database.getCollection("weather");
+        this.manyCollection = database.getCollection("weather_many");
     }
 
 
@@ -35,7 +38,7 @@ public class MongoDBDriver {
     }
 
     public void insertMany(List<Document> weatherDocList) {
-        collection.insertMany(weatherDocList);
+        this.manyCollection.insertMany(weatherDocList);
     }
 
 }
