@@ -1,16 +1,15 @@
 package utils;
 
 
-import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvValidationException;
 import models.Weather;
+import com.opencsv.CSVReader;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+//import com.opencsv.exceptions.CsvValidationException;
+import com.opencsv.exceptions.CsvValidationException;
 
 public class WeatherFileReader {
     public List<Weather> ReadFile(String fileName) throws IOException, CsvValidationException {
@@ -28,4 +27,31 @@ public class WeatherFileReader {
         }
         return weatherList;
     }
+
+    public List<Weather> ReadDir(File dirName) throws IOException, CsvValidationException {
+//        File[]  files = dirName.listFiles();
+        File[] files = dirName.listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return !name.equals(".DS_Store");
+            }
+        });
+
+        List<List<Weather>> listOfWeatherLists = new ArrayList<List<Weather>>();
+        List<Weather> weatherList = new ArrayList<Weather>();
+        for (File file : files) {
+            System.out.println(file.toString());
+            listOfWeatherLists.add(ReadFile(file.toString()));
+        }
+
+        for (List<Weather> lists : listOfWeatherLists) {
+            for (Weather weather : lists) {
+                weatherList.add(weather);
+            }
+        }
+
+        return weatherList;
+    }
+
+
 }
